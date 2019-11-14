@@ -1,10 +1,10 @@
 from django.db import models
-from episodes.models import Episode
+from serials.models import Serial
 
 
 class Season(models.Model):
+    serial = models.ForeignKey(Serial, on_delete=models.CASCADE, default=1)
     number = models.IntegerField()
-    episodes = models.ManyToManyField(Episode)
 
     def create_season_name(self):
         return 'Sezon - {}'.format(self.number)

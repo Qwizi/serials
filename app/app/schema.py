@@ -23,6 +23,8 @@ class Query(
 class Mutation(
     categories.schema.Mutation,
     serials.schema.Mutation,
+    seasons.schema.Mutation,
+    episodes.schema.Mutation,
     graphene.ObjectType
 ):
     pass

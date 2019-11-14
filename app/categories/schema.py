@@ -15,11 +15,16 @@ class CategoryInput(graphene.InputObjectType):
     name = graphene.String()
 
 
-class CreateCategory(DjangoModelFormMutation):
+class CreateCategory(graphene.Mutation):
+    class Arguments:
+        input = CategoryInput(required=True)
+
     category = graphene.Field(CategoryType)
 
-    class Meta:
-        form_class = CategoryForm
+    def mutate(self, info, input):
+        category_instance = Category.objects.create(name=input.name)
+
+        return CreateCategory(category=category_instance)
 
 
 class Mutation(graphene.ObjectType):
