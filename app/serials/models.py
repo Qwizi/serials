@@ -6,7 +6,7 @@ from seasons.models import Season
 class Serial(models.Model):
     title = models.CharField(max_length=64)
     description = models.TextField()
-    premiere_date = models.DateTimeField(auto_now_add=True)
+    premiere_date = models.CharField(max_length=128)
     categories = models.ManyToManyField(Category)
     seasons = models.ManyToManyField(Season)
 

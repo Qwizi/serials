@@ -22,6 +22,7 @@ class Query(
 
 class Mutation(
     categories.schema.Mutation,
+    serials.schema.Mutation,
     graphene.ObjectType
 ):
     pass

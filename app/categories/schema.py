@@ -1,6 +1,8 @@
 from graphene_django import DjangoObjectType
+from graphene_django.forms.mutation import DjangoModelFormMutation
 import graphene
 from .models import Category
+from .forms import CategoryForm
 
 
 class CategoryType(DjangoObjectType):
@@ -8,18 +10,16 @@ class CategoryType(DjangoObjectType):
         model = Category
 
 
-class CreateCategory(graphene.Mutation):
+class CategoryInput(graphene.InputObjectType):
+    id = graphene.ID()
+    name = graphene.String()
+
+
+class CreateCategory(DjangoModelFormMutation):
     category = graphene.Field(CategoryType)
 
-    class Arguments:
-        name = graphene.String(required=True)
-
-    def mutate(self, info, name):
-        category = Category()
-        category.name = name
-        category.save()
-
-        return CreateCategory(category=category)
+    class Meta:
+        form_class = CategoryForm
 
 
 class Mutation(graphene.ObjectType):
