@@ -1,30 +1,30 @@
 import graphene
-from users.schema import Query as UserQuery
-from categories.schema import Query as CategoryQuery
-from serials.schema import Query as SerialQuery
-from seasons.schema import Query as SeasonQuery
-from episodes.schema import Query as EpisodeQuery
+import users.schema
+import categories.schema
+import serials.schema
+import seasons.schema
+import episodes.schema
 
 
 # from users.mutations import Mutation as UserMutation
 
 
 class Query(
-    UserQuery,
-    CategoryQuery,
-    SerialQuery,
-    SeasonQuery,
-    EpisodeQuery,
+    users.schema.Query,
+    categories.schema.Query,
+    serials.schema.Query,
+    seasons.schema.Query,
+    episodes.schema.Query,
     graphene.ObjectType
 ):
     pass
 
 
-# class Mutation(
-#     # UserMutation,
-#     graphene.ObjectType
-# ):
-#     pass
+class Mutation(
+    categories.schema.Mutation,
+    graphene.ObjectType
+):
+    pass
 
 
-schema = graphene.Schema(query=Query)
+schema = graphene.Schema(query=Query, mutation=Mutation)
